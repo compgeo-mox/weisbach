@@ -47,7 +47,7 @@ RUN conda tos accept --override-channels --channel https://repo.anaconda.com/pkg
 RUN conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/r
 
 # Create a new environment
-ENV PYTHON_VERSION=3.11
+ENV PYTHON_VERSION=3.10
 
 RUN conda create -y -n py3 python=${PYTHON_VERSION}
 SHELL ["conda", "run", "-n", "py3", "/bin/bash", "-c"]
@@ -62,9 +62,8 @@ ENV POREPY_HOME=${HOME}/porepy
 # Clone the repository
 WORKDIR ${HOME}
 RUN git clone https://github.com/pmgbergen/porepy.git
-RUN cd ${POREPY_HOME} && git checkout a7a3058cdf84252fc7383dd4b1a9010dea0043ff
-
-#&& pip install --no-cache-dir -e .
+RUN cd ${POREPY_HOME} && git checkout dd830060d4f73518fc3b3216eb2315739e3aec02
+RUN cd ${POREPY_HOME} && pip install --no-cache-dir -e .
 
 # Return to the home folder
 WORKDIR ${HOME}
